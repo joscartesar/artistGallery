@@ -91,6 +91,7 @@ function openfolio_features_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'extra_large',
   );
 
   // Exported image style: medium_uniform.
@@ -113,6 +114,7 @@ function openfolio_features_image_default_styles() {
         'weight' => '2',
       ),
     ),
+    'label' => 'medium_uniform',
   );
 
   return $styles;

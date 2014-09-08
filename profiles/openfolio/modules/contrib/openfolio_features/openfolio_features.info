@@ -2,6 +2,7 @@ name = OpenFolio Features
 core = 7.x
 package = Openfolio
 php = 5.2.4
+version = 7.x-1.x-dev
 project = openfolio_features
 dependencies[] = browscap
 dependencies[] = browscap_ctools
@@ -33,6 +34,7 @@ dependencies[] = views_bulk_operations
 dependencies[] = views_content
 dependencies[] = views_slideshow
 dependencies[] = views_slideshow_cycle
+datestamp = 1380620772
 features[ccl][] = Add a Gallery
 features[ccl][] = Add a Link
 features[ccl][] = Add a slideshow
@@ -157,10 +159,3 @@ features[views_view][] = manage_slideshows
 features[views_view][] = newest_picture
 features[views_view][] = reference_images
 features[views_view][] = slideshow_images
-
-; Information added by drupal.org packaging script on 2013-10-01
-version = "7.x-1.x-dev"
-core = "7.x"
-project = "openfolio_features"
-datestamp = "1380620772"
-
