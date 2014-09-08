@@ -12,9 +12,10 @@ function openfolio_features_default_rules_configuration() {
   $items['rules_update_preview_image'] = entity_import('rules_config', '{ "rules_update_preview_image" : {
       "LABEL" : "Update Preview Image",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "visual portfolio" ],
       "REQUIRES" : [ "rules" ],
-      "ON" : [ "node_insert", "node_update" ],
+      "ON" : { "node_insert" : [], "node_update" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "picture" : "picture" } } } },
         { "entity_has_field" : { "entity" : [ "node:field-gallery" ], "field" : "field_main_image" } },
