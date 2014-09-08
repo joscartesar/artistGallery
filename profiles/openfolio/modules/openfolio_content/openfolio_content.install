@@ -1,0 +1,59 @@
+<?php
+/**
+ * Implements hook_install().
+ *
+ * Import content via node_export.
+ */
+function openfolio_content_install() {
+  variable_set('node_export_reset_author_picture', FALSE);
+  variable_set('node_export_reset_author_gallery', FALSE);
+  $uid = 1;
+  if (!empty($role)) {
+    $artists = db_query('select uid from {users_roles} where rid = :rid}', array(':rid' => $role->rid))->fetchCol();
+    if (!empty($artists)) {
+      $uid = array_shift($artists);
+    }
+  }
+  $node_export = _openfolio_content_import($uid);
+  $code_string = $node_export['galleries_code_string'];
+
+  $role = user_role_load_by_name('artist');
+
+  $return = node_export_import($code_string);
+  $gallery_nids = $return['nids'];
+  $code_string = $node_export['images_code_string'];
+  $code_string = str_replace('**GALLERY_1**', $return['nids'][0], $code_string);
+  $code_string = str_replace('**GALLERY_2**', $return['nids'][1], $code_string);
+  $return = node_export_import($code_string);
+  if ($return['success']) {
+    _openfolio_content_set_galleries(array($gallery_nids[0],$gallery_nids[1]));
+  }
+  $replacements = 1;
+  $code_string = $node_export['slideshow_code_string'];
+  // Loop through place image nid in slide until
+  //   Run out of nids
+  //   Run out of targets
+  while (!empty($return['nids']) && $replacements != 0) {
+    $nid = array_shift($return['nids']);
+    $code_string = preg_replace("/\*\*TARGET_ID\*\*/", $nid, $code_string,1,$replacements);
+  }
+  $return = node_export_import($code_string);
+  $nid = array_shift($return['nids']);
+  $item = array(
+      'link_title' => st('Slideshow'),
+      'link_path' => "node/$nid",
+      'menu_name' => 'main-menu',
+      'weight' => 15
+  );
+  menu_link_save($item);
+  $return = node_export_import($node_export['about_page_code_string']);
+  $nid = array_shift($return['nids']);
+  $item = array(
+      'link_title' => st('About'),
+      'link_path' => "node/$nid",
+      'menu_name' => 'main-menu',
+      'weight' => 17
+  );
+  menu_link_save($item);
+
+}
