@@ -1,0 +1,13 @@
+name = front_page
+description = Configuration for the front page
+core = 7.x
+package = Features
+version = 7.x-1.0
+project = front_page
+dependencies[] = ctools
+dependencies[] = image
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:1
+features[image][] = scale_and_crop
+features[views_view][] = inifinite_scroll
