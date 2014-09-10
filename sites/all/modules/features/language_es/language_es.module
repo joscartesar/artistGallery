@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the language_es feature.
+ */
+
+include_once 'language_es.features.inc';
